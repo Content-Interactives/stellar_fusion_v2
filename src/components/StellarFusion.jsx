@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Container } from './ui/reused-ui/Container';
 import { GlowButton } from './ui/reused-ui/GlowButton';
+import { FlexiText } from './ui/reused-ui/FlexiText';
 
 const StellarFusion = () => {
 	const [showButton, setShowButton] = useState(true);
 	const [backgroundColor, setBackgroundColor] = useState('#E8EDF5');
 	const [stars, setStars] = useState([]);
 	const [showStars, setShowStars] = useState(false);
+	const [showSun, setShowSun] = useState(false);
+	const [showFlexi, setShowFlexi] = useState(false);
 
 	const handleExplore = () => {
 		setShowButton(false);
@@ -20,6 +23,8 @@ const StellarFusion = () => {
 		setBackgroundColor('#E8EDF5');
 		setShowStars(false);
 		setStars([]);
+		setShowSun(false);
+		setShowFlexi(false);
 	};
 
 	useEffect(() => {
@@ -69,7 +74,7 @@ const StellarFusion = () => {
 						</GlowButton>
 					</div>
 				)}
-				{showStars && stars.map(star => (
+				{showStars && stars.map((star, index) => (
 					<div
 						key={star.id}
 						className="absolute bg-white rounded-full"
@@ -82,8 +87,30 @@ const StellarFusion = () => {
 							animationDelay: star.animationDelay,
 							opacity: 0,
 						}}
+						onAnimationEnd={() => {
+							// After the last star fades in, show the sun
+							if (index === stars.length - 1) {
+								setShowSun(true);
+								setShowFlexi(true);
+							}
+						}}
 					/>
 				))}
+				{showSun && (
+					<div
+						className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-yellow-400 rounded-full"
+						style={{
+							animation: `fadeIn 2s ease-out forwards`,
+							opacity: 0,
+							boxShadow: '0 0 20px 10px rgba(253, 224, 71, 0.5)',
+						}}
+					/>
+				)}
+				{showFlexi && (
+					<FlexiText className="fade-in-right-animation">
+						In our current universe, most elements are made in the center of stars
+					</FlexiText>
+				)}
 			</div>
 		</Container>
 	)

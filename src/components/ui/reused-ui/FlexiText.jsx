@@ -1,48 +1,43 @@
 import React from 'react';
-import FlexiWave from '../../assets/All Flexi Poses/SVG/Flexi_Wave.svg';
+import FlexiAstro from '../../../assets/All Flexi Poses/SVG/Flexi_Astro.svg';
 import '../reused-animations/fade.css';
 
 export function FlexiText({ 
     children, 
     className, 
-    flexiImage = FlexiWave,
-    flexiAlt = "Flexi Wave",
+    flexiImage = FlexiAstro,
+    flexiAlt = "Flexi Astro",
     showBubble = true,
     bubbleClassName = "",
     containerClassName = "",
+    zIndex = 3,
     ...props 
 }) {
     return (
         <>
             <style>
                 {`
-                    /* Speech Bubble Styles */
-                    .flexi-wave-bottom-left {
+                    .flexi-astro-bottom-left {
                         position: absolute;
                         left: 0.4rem;
                         bottom: 0.4rem;
                         width: 70px;
-                        max-width: 70px;
-                        min-width: 40px;
-                        width: 5rem;
                         height: auto;
                         z-index: 2;
                         pointer-events: none;
                     }
                     
-                    .flexi-wave-bubble-container {
+                    .flexi-bubble-container {
                         position: absolute;
                         left: 0;
                         bottom: 0;
                         display: flex;
                         align-items: flex-end;
-                        z-index: 3;
                     }
                     
                     .speech-bubble {
                         position: relative;
                         margin-left: 5rem;
-                        margin-right: 1rem;
                         margin-bottom: 70px;
                         background: #fff;
                         border-radius: 18px;
@@ -51,8 +46,7 @@ export function FlexiText({
                         color: #222;
                         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
                         min-width: 160px;
-                        max-width: 90vw;
-                        word-break: break-word;
+                        max-width: 220px;
                     }
                     
                     .speech-bubble:after {
@@ -68,32 +62,18 @@ export function FlexiText({
                         filter: drop-shadow(-5px 2px 2px rgba(0,0,0,0.08));
                         transform: rotate(-34deg);
                     }
-                    
-                    /* Responsive adjustments */
-                    @media (max-width: 500px) {
-                        .speech-bubble {
-                            font-size: 0.875rem;
-                            padding: 6px 10px;
-                            min-width: 140px;
-                        }
-                        
-                        .flexi-wave-bottom-left {
-                            width: 60px;
-                            left: 0.25rem;
-                        }
-                        
-                        .speech-bubble {
-                            margin-left: 4rem;
-                        }
-                    }
                 `}
             </style>
             
-            <div className={`flexi-wave-bubble-container ${containerClassName} ${className || ''}`} {...props}>
+            <div 
+                className={`flexi-bubble-container ${containerClassName} ${className || ''}`} 
+                style={{ zIndex }}
+                {...props}
+            >
                 <img 
                     src={flexiImage} 
                     alt={flexiAlt} 
-                    className="flexi-wave-bottom-left" 
+                    className="flexi-astro-bottom-left" 
                 />
                 {showBubble && (
                     <div className={`speech-bubble ${bubbleClassName}`}>
